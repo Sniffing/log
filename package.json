@@ -1,0 +1,32 @@
+{
+  "name": "log",
+  "main": "node_modules/expo/AppEntry.js",
+  "private": true,
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "eject": "expo eject",
+    "test": "node ./node_modules/jest/bin/jest.js --watchAll"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.1.5",
+    "@expo/samples": "2.1.1",
+    "@google-cloud/datastore": "^2.0.0",
+    "expo": "^31.0.2",
+    "i": "^0.3.6",
+    "npm": "^6.4.1",
+    "react": "16.5.0",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-31.0.0.tar.gz",
+    "react-native-datepicker": "^1.7.2",
+    "react-native-tag-input": "0.0.21",
+    "react-navigation": "^2.18.2"
+  },
+  "devDependencies": {
+    "babel-preset-expo": "^5.0.0",
+    "jest-expo": "^31.0.0"
+  }
+}
