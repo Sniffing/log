@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Switch } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableHighlight } from 'react-native';
 
 export default class BooleanMetricsComponent extends React.Component {
 
@@ -13,17 +13,24 @@ export default class BooleanMetricsComponent extends React.Component {
     this.props.handler(this.state);
   }
 
+  buttonColour(key) {
+    return this.state[key] ? styles.selected : styles.unselected;
+  }
+
+  textColour(key) {
+    return this.state[key] ? styles.textSelected: styles.textUnselected;
+  }
+
   render() {
     let items = Object.entries(this.state).map(([key, value]) => {
       return (
-        <View key={key} style={styles.switcher}>
-        <Text> {key} </Text>
-        <Switch
-          style={styles.switcherSwitch}
-          value={value}
-          onValueChange={value => this.toggle(key)}
-        />
-        </View>
+        <TouchableHighlight
+          key={key}
+          style={[this.buttonColour(key), styles.rbutton]}
+          underlayColor={'#4CAF50'}
+          onPress={() => this.toggle(key)}>
+          <Text style={[this.textColour(key), styles.buttonText]}> {key.toUpperCase()} </Text>
+        </TouchableHighlight>
       )
     });
 
@@ -41,17 +48,33 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    height: '25%',
   },
-  switcher: {
+  selected: {
+    backgroundColor: '#67A54D', /* Green */
+  },
+  unselected: {
+    backgroundColor: '#F56476', /* White */
+  },
+  textSelected: {
+
+  },
+  textUnselected: {
+
+  },
+  buttonText: {
+    paddingTop: 8,
+    textAlign:'center',
+    color: '#FFFFFF',
+    width: '100%',
+  },
+  rbutton: {
+    margin: 4,
+    borderRadius: 12,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '49%',
-    height: 35,
-    borderWidth: 1,
-    borderColor: 'red'
+    width: '47%',
+    height: 35,  
   },
-  switcherSwitch: {
-
-  }
 });

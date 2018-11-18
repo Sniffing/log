@@ -16,25 +16,29 @@ export default class LargeTextEntryComponent extends React.Component {
 
   render() {
     return (
-      <View>
-      <TextInput
-        style={styles.entryInput}
-        value={this.state.data}
-        onChangeText={text => this.handleChange(text)}
-      />
+      <View style={styles.parent}>
+        <TextInput
+          style={styles.entryInput}
+          value={this.state.data}
+          editable={true}
+          numberOfLines={10}
+          multiline={true}
+          onChangeText={text => this.handleChange(text)}
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  entry: {
-    display: 'flex',
-    borderWidth: 1,
-    borderColor: 'blue'
+  parent: {
+    height: '25%',
+    backgroundColor: '#D0E3CC',
+    margin: 4,
+    borderRadius: 12,
+    padding: 4,
   },
   entryInput: {
-    borderWidth: 1,
-    borderColor: 'green'
+    height:'99%'
   }
 });

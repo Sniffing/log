@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { StyleSheet } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 
 export default class DatePickerComponent extends Component {
@@ -17,7 +18,7 @@ export default class DatePickerComponent extends Component {
   render(){
     return (
       <DatePicker
-        style={{width: 200}}
+        style={styles.container}
         date={this.state.date}
         mode="date"
         placeholder="select date"
@@ -29,11 +30,12 @@ export default class DatePickerComponent extends Component {
           dateIcon: {
             position: 'absolute',
             left: 0,
-            top: 4,
+            top: 2,
             marginLeft: 0
           },
           dateInput: {
-            marginLeft: 36
+            marginLeft: 36,
+            height: '90%'
           }
           // ... You can check the source to find the other keys.
         }}
@@ -42,3 +44,10 @@ export default class DatePickerComponent extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    height: '10%',
+    width: '100%',
+  }
+});

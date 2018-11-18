@@ -1,13 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput,
-         Button, Switch } from 'react-native';
+         Button, Switch, Image } from 'react-native';
 import BooleanMetricsComponent from 'log/components/booleanMetrics';
 import EntryMetricsComponent from 'log/components/entryMetrics';
 import LargeTextEntryComponent from 'log/components/largeTextEntry';
 import DatePickerComponent from 'log/components/datePicker';
 import CustomKeywordsListComponent from 'log/components/customKeywordsList';
-// const Datastore = require('@google-cloud/datastore');
-// const datastore = Datastore();
 
 export default class App extends React.Component {
 
@@ -44,8 +42,22 @@ export default class App extends React.Component {
   }
 
   submit() {
-    // console.log("datastore key", datastore.key('hello'));
-    console.log("logging state", this.state);
+    console.log("Sending state back to server: ", this.state);
+    console.log("Sending state back to server: ", JSON.stringify(this.state));
+    fetch('http://1baa7656.ngrok.io', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.state),
+          }).then((response) => response.json())
+              .then((success) => {
+                console.log("is success? ", success);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
   }
 
   dateStateHandler(newDateState) {
@@ -96,12 +108,8 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <DatePickerComponent
-          state={this.state.dateState}
-          handler={this.dateStateHandler.bind(this)}/>
-        <EntryMetricsComponent
-          state={this.state.entryMetricState}
-          handler={this.entryMetricStateHandler.bind(this)}/>
+        <Image style={styles.eye}
+          source={require('log/assets/eye.gif')} />
         <BooleanMetricsComponent
           state={this.state.booleanMetricState}
           handler={this.booleanMetricStateHandler.bind(this)}/>
@@ -111,11 +119,17 @@ export default class App extends React.Component {
         <LargeTextEntryComponent
           state={this.state.textState}
           handler={this.textStateHandler.bind(this)}/>
+        <DatePickerComponent
+          state={this.state.dateState}
+          handler={this.dateStateHandler.bind(this)}/>
+        <EntryMetricsComponent
+          state={this.state.entryMetricState}
+          handler={this.entryMetricStateHandler.bind(this)}/>
         <Button
-          color="#66A7A7"
+          style={styles.button}
+          color="#67A54D"
           onPress={this.submit}
           title="Submit"
-          accessibilityLabel="Send to third eye"
         />
       </View>
     );
@@ -127,9 +141,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: '#fff',
-    marginTop: 50
+    alignItems: 'stretch',
+    height: '100%',
   },
-  filler: {
-
+  eye: {
+    height: '10%',
+    resizeMode: 'contain',
+    alignItems: 'center',
+    width: '100%'
+  },
+  button: {
+    height: '10%',
   }
 });

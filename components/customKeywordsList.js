@@ -38,13 +38,13 @@ export default class CustomKeywordsListComponent extends React.Component {
   render() {
     return (
       <View style={styles.keywords}>
-      <TagInput
-        value={this.state.keywords}
-        onChange={this.onChangeKeywords.bind(this)}
-        labelExtractor={(keyword) => keyword}
-        text={this.state.text}
-        onChangeText={this.onChangeText.bind(this)}
-      />
+        <TagInput
+          value={this.state.keywords}
+          onChange={this.onChangeKeywords.bind(this)}
+          labelExtractor={(keyword) => keyword}
+          text={this.state.text}
+          onChangeText={this.onChangeText.bind(this)}
+        />
       </View>
     );
   }
@@ -52,10 +52,11 @@ export default class CustomKeywordsListComponent extends React.Component {
 
 const styles = StyleSheet.create({
   keywords: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: 'blue',
-    maxHeight: 40,
-    height: 40
+    height: '15%',
+    width: '98%',
+    backgroundColor: '#D0E3CC',
+    margin: 4,
+    borderRadius: 12,
+    padding: 4,
   }
 });

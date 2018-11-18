@@ -19,7 +19,7 @@ export default class EntryMetricsComponent extends React.Component {
     let items = Object.entries(this.state).map(([key, value]) => {
       return (
         <View key={key} style={styles.entry}>
-        <Text> {key} </Text>
+        <Text style={styles.entryKey}> {key} </Text>
         <TextInput
           style={styles.entryInput}
           value={value}
@@ -41,20 +41,27 @@ const styles = StyleSheet.create({
   parent: {
     display: 'flex',
     justifyContent: 'space-between',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    height: '5%',
+    width: '100%',
   },
   entry: {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '49%',
-    borderWidth: 1,
-    borderColor: 'blue'
+    width: '100%',
+  },
+  entryKey: {
+    textAlign: 'right',
+    paddingTop: 4,
+    width: '18%',
   },
   entryInput: {
     borderWidth: 1,
-    width: '60%',
+    width: '75%',
     height: 30,
-    borderColor: 'green'
+    marginRight: 20,
+    borderRadius: 6,
+    borderColor: '#67A54D'
   }
 });
