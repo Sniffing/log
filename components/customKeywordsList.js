@@ -20,7 +20,6 @@ export default class CustomKeywordsListComponent extends React.Component {
   }
 
   onChangeText(text) {
-    console.log("ok text", text);
     this.setState({ text });
 
     const lastTyped = text.charAt(text.length - 1);

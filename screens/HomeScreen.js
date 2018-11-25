@@ -29,7 +29,7 @@ export default class App extends React.Component {
   }
 
   submit(container) {
-    console.log("Submitting", this.state);
+    console.log("Submitting", container.getState());
     this.showAlert(true, container);
     // fetch('http://c11ba659.ngrok.io', {
     //         method: 'POST',
@@ -71,8 +71,7 @@ export default class App extends React.Component {
               <Image style={styles.eye}
                 source={require('log/assets/eye.gif')} />
               <BooleanMetricsComponent
-                stateContainer={() => stateContainer.getBooleanMetricState()}
-                handler={stateContainer.booleanMetricStateUpdate.bind(this)}/>
+                stateContainer={() => stateContainer.getBooleanMetricState()}/>
               <CustomKeywordsListComponent
                 stateContainer={() => stateContainer.getKeywordsState()}
                 handler={stateContainer.keywordsStateUpdate.bind(this)}/>

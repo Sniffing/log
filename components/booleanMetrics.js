@@ -11,13 +11,8 @@ export default class BooleanMetricsComponent extends React.Component {
     this.shadowState = this.state;
   }
 
-  toggle(key) {
-    this.shadowState[key] = !this.shadowState[key];
-    this.props.handler(this.shadowState);
-  }
-
-  buttonColour(state, key) {
-    return this.shadowState[key] ? styles.selected : styles.unselected;
+  buttonColour(selected) {
+    return selected ? styles.selected : styles.unselected;
   }
 
   render() {
@@ -26,9 +21,9 @@ export default class BooleanMetricsComponent extends React.Component {
         <Subscribe to={[StateContainer]} key={key}>
           {stateContainer => (
             <TouchableHighlight
-              style={[this.buttonColour(stateContainer.getBooleanMetricState(), key), styles.rbutton]}
+              style={[this.buttonColour(stateContainer.getBooleanMetricState()[key]), styles.rbutton]}
               underlayColor={'#4CAF50'}
-              onPress={() => this.toggle(key)}>
+              onPress={() => stateContainer.booleanMetricUpdate(key)}>
               <Text style={[styles.buttonText]}> {key.toUpperCase()} </Text>
             </TouchableHighlight>
           )}

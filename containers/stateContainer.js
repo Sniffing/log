@@ -28,29 +28,12 @@ export default class StateContainer extends Container {
     }
   };
 
-  getState() {
-    return this.state;
-  }
-
-  getBooleanMetricState() {
-    return this.state.booleanMetricState;
-  }
-
-  getKeywordsState() {
-    return this.state.keywordsState;
-  }
-
-  getEntryMetricState() {
-    return this.state.entryMetricState;
-  }
-
-  getDateState() {
-    return this.state.dateState;
-  }
-
-  getTextState() {
-    return this.state.textState;
-  }
+  getState = () => { return this.state };
+  getBooleanMetricState = () => { return this.state.booleanMetricState; }
+  getKeywordsState = () => { return this.state.keywordsState; }
+  getEntryMetricState = () => { return this.state.entryMetricState; }
+  getDateState = () => { return this.state.dateState; }
+  getTextState = () => { return this.state.textState; }
 
   dateStateUpdate(newDateState) {
     this.setState({
@@ -58,10 +41,13 @@ export default class StateContainer extends Container {
     })
   }
 
-  booleanMetricStateUpdate(newBooleanMetricState) {
-    this.setState({
-      booleanMetricState: newBooleanMetricState
-    })
+  booleanMetricUpdate = (key) => {
+    var newState = this.state.booleanMetricState;
+    newState[key] = !newState[key];
+
+    this.setState(state => {
+      return newState;
+    });
   }
 
   entryMetricStateUpdate(newEntryMetricState) {
@@ -96,29 +82,57 @@ export default class StateContainer extends Container {
     return dd + "-" + mm + "-" + yyyy;
   }
 
-  reset() {
-    this.dateStateUpdate({
-      date: this.currentDate()
-    });
-    this.booleanMetricStateUpdate({
-      happy: false,
-      sad: false,
-      sick: false,
-      lonely: false,
-      stress: false,
-      overate: false,
-      dance: false,
-      gym: false
-    });
-    this.entryMetricStateUpdate({
-      weight: ""
-    });
-    this.keywordsStateUpdate({
-      keywords: [],
-      text: ""
-    });
-    this.textStateUpdate({
-      data: ""
-    });
+  reset = () => {
+    console.log("in the reset function");
+    let freshState = {
+      dateState: {
+        date: this.currentDate()
+      },
+      booleanMetricState: {
+        happy: false,
+        sad: false,
+        sick: false,
+        lonely: false,
+        stress: false,
+        overate: false,
+        dance: false,
+        gym: false
+      },
+      entryMetricState: {
+        weight: ""
+      },
+      keywordsState: {
+        keywords: [],
+        text: ""
+      },
+      textState: {
+        data: ""
+      }
+    }
+
+    this.setState(freshState);
+    // this.dateStateUpdate({
+    //   date: this.currentDate()
+    // });
+    // this.booleanMetricStateUpdate({
+    //   happy: false,
+    //   sad: false,
+    //   sick: false,
+    //   lonely: false,
+    //   stress: false,
+    //   overate: false,
+    //   dance: false,
+    //   gym: false
+    // });
+    // this.entryMetricStateUpdate({
+    //   weight: ""
+    // });
+    // this.keywordsStateUpdate({
+    //   keywords: [],
+    //   text: ""
+    // });
+    // this.textStateUpdate({
+    //   data: ""
+    // });
   }
 }
