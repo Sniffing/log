@@ -7,15 +7,6 @@ import { Subscribe } from 'unstated';
 export default class DatePickerComponent extends Component {
   constructor(props){
     super(props)
-    this.state = this.props.stateContainer();
-
-    this.shadowState = this.state;
-  }
-
-  handleChange(date) {
-    let newState = {date: date}
-    this.shadowState.date = date;
-    this.props.handler(newState)
   }
 
   render(){
@@ -24,7 +15,7 @@ export default class DatePickerComponent extends Component {
         {stateContainer => (
           <DatePicker
             style={styles.container}
-            date={this.shadowState.date}
+            date={stateContainer.getDateState().date}
             mode="date"
             placeholder="select date"
             format="DD-MM-YYYY"
@@ -44,7 +35,7 @@ export default class DatePickerComponent extends Component {
               }
               // ... You can check the source to find the other keys.
             }}
-            onDateChange={(newDate) => this.handleChange(newDate)}
+            onDateChange={(newDate) => stateContainer.dateUpdate(newDate)}
           />
       )}
       </Subscribe>

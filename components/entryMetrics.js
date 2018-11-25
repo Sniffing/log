@@ -8,13 +8,6 @@ export default class EntryMetricsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.stateContainer();
-
-    this.shadowState = this.state;
-  }
-
-  handleChange(key, value) {
-    this.shadowState[key] = value;
-    this.props.handler(this.shadowState);
   }
 
   render() {
@@ -26,8 +19,8 @@ export default class EntryMetricsComponent extends React.Component {
               <Text style={styles.entryKey}> {key} </Text>
               <TextInput
                 style={styles.entryInput}
-                value={value}
-                onChangeText={(v) => this.handleChange(key,v)}
+                value={stateContainer.getEntryMetricState()[key]}
+                onChangeText={(v) => stateContainer.entryMetricUpdate(key,v)}
               />
             </View>
           )}

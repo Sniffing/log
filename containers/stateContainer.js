@@ -35,9 +35,11 @@ export default class StateContainer extends Container {
   getDateState = () => { return this.state.dateState; }
   getTextState = () => { return this.state.textState; }
 
-  dateStateUpdate(newDateState) {
+  dateUpdate(newDate) {
     this.setState({
-      dateState: newDateState
+      dateState: {
+        date: newDate
+      }
     })
   }
 
@@ -92,10 +94,13 @@ export default class StateContainer extends Container {
     });
   }
 
-  entryMetricStateUpdate(newEntryMetricState) {
+  entryMetricUpdate(key, value) {
+    var newState = this.state.entryMetricState;
+    newState[key] = value;
+
     this.setState({
-      entryMetricState: newEntryMetricState
-    })
+      entryMetricState: newState
+    });
   }
 
   textUpdate = (text) => {

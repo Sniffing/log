@@ -74,12 +74,9 @@ export default class App extends React.Component {
                 stateContainer={() => stateContainer.getBooleanMetricState()}/>
               <CustomKeywordsListComponent/>
               <LargeTextEntryComponent/>
-              <DatePickerComponent
-                stateContainer={() => stateContainer.getDateState()}
-                handler={stateContainer.dateStateUpdate.bind(this)}/>
+              <DatePickerComponent/>
               <EntryMetricsComponent
-                stateContainer={() => stateContainer.getEntryMetricState()}
-                handler={stateContainer.entryMetricStateUpdate.bind(this)}/>
+                stateContainer={() => stateContainer.getEntryMetricState()}/>
               <Button
                 style={styles.button}
                 color="#67A54D"
