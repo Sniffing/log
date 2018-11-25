@@ -1,93 +1,49 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput,
-         Button, Switch, Image } from 'react-native';
+         Button, Switch, Image, Alert} from 'react-native';
+import { Provider, Subscribe } from 'unstated';
 import BooleanMetricsComponent from 'log/components/booleanMetrics';
 import EntryMetricsComponent from 'log/components/entryMetrics';
 import LargeTextEntryComponent from 'log/components/largeTextEntry';
 import DatePickerComponent from 'log/components/datePicker';
 import CustomKeywordsListComponent from 'log/components/customKeywordsList';
+import StateContainer from 'log/containers/stateContainer';
 
 export default class App extends React.Component {
-
   constructor(props) {
     super(props);
 
-    this.state = {
-      dateState: {
-        date: this.currentDate()
-      },
-      booleanMetricState: {
-        happy: false,
-        sad: false,
-        sick: false,
-        lonely: false,
-        stress: false,
-        overate: false,
-        dance: false,
-        gym: false
-      },
-      entryMetricState: {
-        weight: ""
-      },
-      keywordsState: {
-        keywords: [],
-        text: ""
-      },
-      textState: {
-        data: ""
-      }
-    }
-
     this.submit = this.submit.bind(this);
+    this.showAlert = this.showAlert.bind(this);
+  }
+
+  showAlert(result) {
+    Alert.alert(
+      result ? 'Entry saved!' : 'Key exists or error saving stats',
+      undefined,
+      [
+        {text: 'OK', onPress: () => this.resetStates()},
+      ],
+      { cancelable: false }
+    )
   }
 
   submit() {
-    console.log("Sending state back to server: ", this.state);
-    console.log("Sending state back to server: ", JSON.stringify(this.state));
-    fetch('http://1baa7656.ngrok.io', {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.state),
-          }).then((response) => response.json())
-              .then((success) => {
-                console.log("is success? ", success);
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-  }
-
-  dateStateHandler(newDateState) {
-    this.setState({
-      dateState: newDateState
-    })
-  }
-
-  booleanMetricStateHandler(newBooleanMetricState) {
-    this.setState({
-      booleanMetricState: newBooleanMetricState
-    })
-  }
-
-  entryMetricStateHandler(newEntryMetricState) {
-    this.setState({
-      entryMetricState: newEntryMetricState
-    })
-  }
-
-  keywordsStateHandler(newKeywordsState) {
-    this.setState({
-      keywordsState: newKeywordsState
-    })
-  }
-
-  textStateHandler(newTextState) {
-    this.setState({
-      textState: newTextState
-    })
+    console.log("Submitting", this.state);
+    // fetch('http://c11ba659.ngrok.io', {
+    //         method: 'POST',
+    //         headers: {
+    //           Accept: 'application/json',
+    //           'Content-Type': 'application/json',
+    //         },
+    //         body: JSON.stringify(this.state),
+    //       }).then((response) => response.json())
+    //         .then((success) => {
+    //           this.showAlert(success);
+    //         })
+    //         .catch((error) => {
+    //           this.showAlert(false);
+    //         });
   }
 
   currentDate() {
@@ -107,34 +63,42 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Image style={styles.eye}
-          source={require('log/assets/eye.gif')} />
-        <BooleanMetricsComponent
-          state={this.state.booleanMetricState}
-          handler={this.booleanMetricStateHandler.bind(this)}/>
-        <CustomKeywordsListComponent
-          state={this.state.keywordsState}
-          handler={this.keywordsStateHandler.bind(this)}/>
-        <LargeTextEntryComponent
-          state={this.state.textState}
-          handler={this.textStateHandler.bind(this)}/>
-        <DatePickerComponent
-          state={this.state.dateState}
-          handler={this.dateStateHandler.bind(this)}/>
-        <EntryMetricsComponent
-          state={this.state.entryMetricState}
-          handler={this.entryMetricStateHandler.bind(this)}/>
-        <Button
-          style={styles.button}
-          color="#67A54D"
-          onPress={this.submit}
-          title="Submit"
-        />
-      </View>
+      <Provider>
+        <Subscribe to={[StateContainer]}>
+          {stateContainer => (
+            <View style={styles.container}>
+              <Image style={styles.eye}
+                source={require('log/assets/eye.gif')} />
+              <BooleanMetricsComponent
+                stateContainer={() => stateContainer.getBooleanMetricState()}
+                handler={stateContainer.booleanMetricStateUpdate.bind(this)}/>
+              <CustomKeywordsListComponent
+                stateContainer={() => stateContainer.getKeywordsState()}
+                handler={stateContainer.keywordsStateUpdate.bind(this)}/>
+              <Button
+                style={styles.button}
+                color="#67A54D"
+                onPress={() => this.submit(stateContainer.getState())}
+                title="Submit"
+              />
+            </View>
+          )}
+      </Subscribe>
+    </Provider>
     );
   }
 }
+
+
+// <LargeTextEntryComponent
+//   state={() => stateContainer.getState().textState}
+//   handler={stateContainer.textStateUpdate}/>
+// <DatePickerComponent
+//   state={() => stateContainer.getState().dateState}
+//   handler={stateContainer.dateStateUpdate}/>
+// <EntryMetricsComponent
+//   state={() => stateContainer.getState().entryMetricState}
+//   handler={stateContainer.entryMetricStateUpdate}/>
 
 const styles = StyleSheet.create({
   container: {
@@ -152,5 +116,5 @@ const styles = StyleSheet.create({
   },
   button: {
     height: '10%',
-  }
+  },
 });

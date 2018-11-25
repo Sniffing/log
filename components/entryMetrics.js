@@ -19,12 +19,12 @@ export default class EntryMetricsComponent extends React.Component {
     let items = Object.entries(this.state).map(([key, value]) => {
       return (
         <View key={key} style={styles.entry}>
-        <Text style={styles.entryKey}> {key} </Text>
-        <TextInput
-          style={styles.entryInput}
-          value={value}
-          onChangeText={(v) => this.handleChange(key,v)}
-        />
+          <Text style={styles.entryKey}> {key} </Text>
+          <TextInput
+            style={styles.entryInput}
+            value={value}
+            onChangeText={(v) => this.handleChange(key,v)}
+          />
         </View>
       )
     });

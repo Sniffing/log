@@ -1,24 +1,26 @@
 import React from 'react';
 import { StyleSheet, View} from 'react-native';
 import TagInput from 'react-native-tag-input';
+import StateContainer from 'log/containers/stateContainer';
+import { Subscribe } from 'unstated';
 
 export default class CustomKeywordsListComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      keywords: [],
-      text: ""
-    }
+    this.state = this.props.stateContainer();
   }
 
-  onChangeKeywords(keywords) {
-    this.setState({
+  onChangeKeywords(stateContainer, keywords) {
+    let newState = {
       keywords: keywords
-    });
+    }
+    this.setState(newState);
+    this.props.handler(newState);
   }
 
   onChangeText(text) {
+    console.log("ok text", text);
     this.setState({ text });
 
     const lastTyped = text.charAt(text.length - 1);
@@ -37,15 +39,21 @@ export default class CustomKeywordsListComponent extends React.Component {
 
   render() {
     return (
-      <View style={styles.keywords}>
-        <TagInput
-          value={this.state.keywords}
-          onChange={this.onChangeKeywords.bind(this)}
-          labelExtractor={(keyword) => keyword}
-          text={this.state.text}
-          onChangeText={this.onChangeText.bind(this)}
-        />
-      </View>
+      <Subscribe to={[StateContainer]}>
+        {stateContainer => (
+          <View style={styles.keywords}>
+            <TagInput
+              value={this.state.keywords || []}
+              onChange={(item) => this.onChangeKeywords(stateContainer, item)}
+              labelExtractor={(keyword) => keyword}
+              tagContainerStyle={styles.tagContainerStyle}
+              tagTextStyle={styles.tagTextStyle}
+              text={this.state.text}
+              onChangeText={this.onChangeText.bind(this)}
+            />
+          </View>
+        )}
+      </Subscribe>
     );
   }
 }
@@ -58,5 +66,12 @@ const styles = StyleSheet.create({
     margin: 4,
     borderRadius: 12,
     padding: 4,
+  },
+  tagTextStyle: {
+    fontSize: 18,
+    color: 'black'
+  },
+  tagContainerStyle: {
+    height: 40
   }
 });

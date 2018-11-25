@@ -21,7 +21,7 @@ export default class LargeTextEntryComponent extends React.Component {
           style={styles.entryInput}
           value={this.state.data}
           editable={true}
-          numberOfLines={10}
+          maxLength={500}
           multiline={true}
           onChangeText={text => this.handleChange(text)}
         />
@@ -39,6 +39,7 @@ const styles = StyleSheet.create({
     padding: 4,
   },
   entryInput: {
-    height:'99%'
+    height:'99%',
+    fontSize: 20,
   }
 });
