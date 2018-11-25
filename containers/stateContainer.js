@@ -40,6 +40,14 @@ export default class StateContainer extends Container {
     return this.state.keywordsState;
   }
 
+  getEntryMetricState() {
+    return this.state.entryMetricState;
+  }
+
+  getDateState() {
+    return this.state.dateState;
+  }
+
   dateStateUpdate(newDateState) {
     this.setState({
       dateState: newDateState

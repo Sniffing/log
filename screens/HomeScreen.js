@@ -17,19 +17,20 @@ export default class App extends React.Component {
     this.showAlert = this.showAlert.bind(this);
   }
 
-  showAlert(result) {
+  showAlert(result, container) {
     Alert.alert(
       result ? 'Entry saved!' : 'Key exists or error saving stats',
       undefined,
       [
-        {text: 'OK', onPress: () => this.resetStates()},
+        {text: 'OK', onPress: () => container.reset()},
       ],
       { cancelable: false }
     )
   }
 
-  submit() {
+  submit(container) {
     console.log("Submitting", this.state);
+    this.showAlert(true, container);
     // fetch('http://c11ba659.ngrok.io', {
     //         method: 'POST',
     //         headers: {
@@ -75,10 +76,16 @@ export default class App extends React.Component {
               <CustomKeywordsListComponent
                 stateContainer={() => stateContainer.getKeywordsState()}
                 handler={stateContainer.keywordsStateUpdate.bind(this)}/>
+              <DatePickerComponent
+                stateContainer={() => stateContainer.getDateState()}
+                handler={stateContainer.dateStateUpdate.bind(this)}/>
+              <EntryMetricsComponent
+                stateContainer={() => stateContainer.getEntryMetricState()}
+                handler={stateContainer.entryMetricStateUpdate.bind(this)}/>
               <Button
                 style={styles.button}
                 color="#67A54D"
-                onPress={() => this.submit(stateContainer.getState())}
+                onPress={() => this.submit(stateContainer)}
                 title="Submit"
               />
             </View>
@@ -88,17 +95,9 @@ export default class App extends React.Component {
     );
   }
 }
-
-
 // <LargeTextEntryComponent
 //   state={() => stateContainer.getState().textState}
 //   handler={stateContainer.textStateUpdate}/>
-// <DatePickerComponent
-//   state={() => stateContainer.getState().dateState}
-//   handler={stateContainer.dateStateUpdate}/>
-// <EntryMetricsComponent
-//   state={() => stateContainer.getState().entryMetricState}
-//   handler={stateContainer.entryMetricStateUpdate}/>
 
 const styles = StyleSheet.create({
   container: {
