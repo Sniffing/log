@@ -73,9 +73,7 @@ export default class App extends React.Component {
               <BooleanMetricsComponent
                 stateContainer={() => stateContainer.getBooleanMetricState()}/>
               <CustomKeywordsListComponent/>
-              <LargeTextEntryComponent
-                stateContainer={() => stateContainer.getTextState()}
-                handler={stateContainer.textStateUpdate.bind(this)}/>
+              <LargeTextEntryComponent/>
               <DatePickerComponent
                 stateContainer={() => stateContainer.getDateState()}
                 handler={stateContainer.dateStateUpdate.bind(this)}/>

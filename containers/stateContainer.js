@@ -70,7 +70,7 @@ export default class StateContainer extends Container {
         keywords: [...this.state.keywordsState.keywords, this.state.keywordsState.text],
         text: "",
       }
-      
+
       this.setState(state => {
         state.keywordsState = newState;
         return state;
@@ -98,10 +98,11 @@ export default class StateContainer extends Container {
     })
   }
 
-  textStateUpdate(newTextState) {
+  textUpdate = (text) => {
+    let newState = {data: text};
     this.setState({
-      textState: newTextState
-    })
+      textState: newState
+    });
   }
 
   currentDate() {

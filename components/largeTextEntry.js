@@ -7,15 +7,6 @@ export default class LargeTextEntryComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = this.props.stateContainer();
-
-    this.shadowState = this.state
-  }
-
-  handleChange(stateContainer, text) {
-    let newState = {data: text};
-    this.shadowState = newState;
-    this.props.handler(newState);
   }
 
   render() {
@@ -25,11 +16,11 @@ export default class LargeTextEntryComponent extends React.Component {
           <View style={styles.parent}>
             <TextInput
               style={styles.entryInput}
-              value={this.shadowState.data}
+              value={stateContainer.getTextState().data}
               editable={true}
               maxLength={500}
               multiline={true}
-              onChangeText={text => this.handleChange(stateContainer, text)}
+              onChangeText={text => stateContainer.textUpdate(text)}
             />
           </View>
         )}
