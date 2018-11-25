@@ -55,6 +55,6 @@ export default class DatePickerComponent extends Component {
 const styles = StyleSheet.create({
   container: {
     height: '10%',
-    width: '100%',
+    width: '98%',
   }
 });

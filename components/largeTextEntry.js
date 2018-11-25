@@ -1,31 +1,39 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput} from 'react-native';
+import StateContainer from 'log/containers/stateContainer';
+import { Subscribe } from 'unstated';
 
 export default class LargeTextEntryComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = this.props.state;
+    this.state = this.props.stateContainer();
+
+    this.shadowState = this.state
   }
 
-  handleChange(text) {
+  handleChange(stateContainer, text) {
     let newState = {data: text};
-    this.setState(newState);
+    this.shadowState = newState;
     this.props.handler(newState);
   }
 
   render() {
     return (
-      <View style={styles.parent}>
-        <TextInput
-          style={styles.entryInput}
-          value={this.state.data}
-          editable={true}
-          maxLength={500}
-          multiline={true}
-          onChangeText={text => this.handleChange(text)}
-        />
-      </View>
+      <Subscribe to={[StateContainer]}>
+        {stateContainer => (
+          <View style={styles.parent}>
+            <TextInput
+              style={styles.entryInput}
+              value={this.shadowState.data}
+              editable={true}
+              maxLength={500}
+              multiline={true}
+              onChangeText={text => this.handleChange(stateContainer, text)}
+            />
+          </View>
+        )}
+      </Subscribe>
     );
   }
 }

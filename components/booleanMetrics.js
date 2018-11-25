@@ -59,14 +59,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#F56476', /* White */
   },
   buttonText: {
-    paddingTop: 8,
+    paddingTop: 6,
     textAlign:'center',
     color: '#FFFFFF',
     width: '100%',
     fontSize: 18
   },
   rbutton: {
-    margin: 4,
+    margin: 3,
     borderRadius: 12,
     display: 'flex',
     flexDirection: 'row',

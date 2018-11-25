@@ -76,6 +76,9 @@ export default class App extends React.Component {
               <CustomKeywordsListComponent
                 stateContainer={() => stateContainer.getKeywordsState()}
                 handler={stateContainer.keywordsStateUpdate.bind(this)}/>
+              <LargeTextEntryComponent
+                stateContainer={() => stateContainer.getTextState()}
+                handler={stateContainer.textStateUpdate.bind(this)}/>
               <DatePickerComponent
                 stateContainer={() => stateContainer.getDateState()}
                 handler={stateContainer.dateStateUpdate.bind(this)}/>
@@ -95,9 +98,6 @@ export default class App extends React.Component {
     );
   }
 }
-// <LargeTextEntryComponent
-//   state={() => stateContainer.getState().textState}
-//   handler={stateContainer.textStateUpdate}/>
 
 const styles = StyleSheet.create({
   container: {

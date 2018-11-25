@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     height: '5%',
-    width: '100%',
+    width: '99%',
   },
   entry: {
     display: 'flex',

@@ -48,6 +48,10 @@ export default class StateContainer extends Container {
     return this.state.dateState;
   }
 
+  getTextState() {
+    return this.state.textState;
+  }
+
   dateStateUpdate(newDateState) {
     this.setState({
       dateState: newDateState
