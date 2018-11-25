@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput,
-         Button, Switch, Image, Alert} from 'react-native';
+         Button, Switch, Image, Alert, Keyboard,
+         TouchableWithoutFeedback } from 'react-native';
 import { Provider, Subscribe } from 'unstated';
 import BooleanMetricsComponent from 'log/components/booleanMetrics';
 import EntryMetricsComponent from 'log/components/entryMetrics';
@@ -8,6 +9,12 @@ import LargeTextEntryComponent from 'log/components/largeTextEntry';
 import DatePickerComponent from 'log/components/datePicker';
 import CustomKeywordsListComponent from 'log/components/customKeywordsList';
 import StateContainer from 'log/containers/stateContainer';
+
+const DismissKeyboard = ({ children }) => (
+  <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+    {children}
+  </TouchableWithoutFeedback>
+);
 
 export default class App extends React.Component {
   constructor(props) {
@@ -67,6 +74,7 @@ export default class App extends React.Component {
       <Provider>
         <Subscribe to={[StateContainer]}>
           {stateContainer => (
+            <DismissKeyboard>
             <View style={styles.container}>
               <Image style={styles.eye}
                 source={require('log/assets/eye.gif')} />
@@ -84,6 +92,7 @@ export default class App extends React.Component {
                 title="Submit"
               />
             </View>
+            </DismissKeyboard>
           )}
       </Subscribe>
     </Provider>
