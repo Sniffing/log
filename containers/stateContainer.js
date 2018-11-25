@@ -46,19 +46,55 @@ export default class StateContainer extends Container {
     newState[key] = !newState[key];
 
     this.setState(state => {
+      state.booleanMetricState = newState;
+      return state;
+    });
+  }
+
+  keywordUpdate = (words) => {
+    var newState = this.state.keywordsState;
+    newState.keywords = words;
+
+    this.setState(state => {
+      state.keywordsState = newState;
       return newState;
+    });
+  }
+
+  keywordTextUpdate = (text) => {
+    const lastTyped = text.charAt(text.length - 1);
+    const parseWhen = [',', ' ', '\n'];
+
+    if (parseWhen.indexOf(lastTyped) > -1) {
+      var newState = {
+        keywords: [...this.state.keywordsState.keywords, this.state.keywordsState.text],
+        text: "",
+      }
+      
+      this.setState(state => {
+        state.keywordsState = newState;
+        return state;
+      });
+    } else {
+      var newState = this.state.keywordsState;
+      newState.text = text;
+      this.setState(state => {
+        state.keywordsState = newState;
+        return state;
+      });
+    }
+  }
+
+  keywordStateUpdate = (newState) => {
+    this.setState(state => {
+      state.keywordsState = newState;
+      return state;
     });
   }
 
   entryMetricStateUpdate(newEntryMetricState) {
     this.setState({
       entryMetricState: newEntryMetricState
-    })
-  }
-
-  keywordsStateUpdate(newKeywordsState) {
-    this.setState({
-      keywordsState: newKeywordsState
     })
   }
 
@@ -83,7 +119,6 @@ export default class StateContainer extends Container {
   }
 
   reset = () => {
-    console.log("in the reset function");
     let freshState = {
       dateState: {
         date: this.currentDate()
@@ -111,28 +146,5 @@ export default class StateContainer extends Container {
     }
 
     this.setState(freshState);
-    // this.dateStateUpdate({
-    //   date: this.currentDate()
-    // });
-    // this.booleanMetricStateUpdate({
-    //   happy: false,
-    //   sad: false,
-    //   sick: false,
-    //   lonely: false,
-    //   stress: false,
-    //   overate: false,
-    //   dance: false,
-    //   gym: false
-    // });
-    // this.entryMetricStateUpdate({
-    //   weight: ""
-    // });
-    // this.keywordsStateUpdate({
-    //   keywords: [],
-    //   text: ""
-    // });
-    // this.textStateUpdate({
-    //   data: ""
-    // });
   }
 }

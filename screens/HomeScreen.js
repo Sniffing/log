@@ -72,9 +72,7 @@ export default class App extends React.Component {
                 source={require('log/assets/eye.gif')} />
               <BooleanMetricsComponent
                 stateContainer={() => stateContainer.getBooleanMetricState()}/>
-              <CustomKeywordsListComponent
-                stateContainer={() => stateContainer.getKeywordsState()}
-                handler={stateContainer.keywordsStateUpdate.bind(this)}/>
+              <CustomKeywordsListComponent/>
               <LargeTextEntryComponent
                 stateContainer={() => stateContainer.getTextState()}
                 handler={stateContainer.textStateUpdate.bind(this)}/>

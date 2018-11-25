@@ -8,32 +8,6 @@ export default class CustomKeywordsListComponent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = this.props.stateContainer();
-  }
-
-  onChangeKeywords(stateContainer, keywords) {
-    let newState = {
-      keywords: keywords
-    }
-    this.setState(newState);
-    this.props.handler(newState);
-  }
-
-  onChangeText(text) {
-    this.setState({ text });
-
-    const lastTyped = text.charAt(text.length - 1);
-    const parseWhen = [',', ' ', '\n'];
-
-    if (parseWhen.indexOf(lastTyped) > -1) {
-      let newState = {
-        keywords: [...this.state.keywords, this.state.text],
-        text: "",
-      }
-
-      this.setState(newState);
-      this.props.handler(newState);
-    }
   }
 
   render() {
@@ -42,13 +16,13 @@ export default class CustomKeywordsListComponent extends React.Component {
         {stateContainer => (
           <View style={styles.keywords}>
             <TagInput
-              value={this.state.keywords || []}
-              onChange={(item) => this.onChangeKeywords(stateContainer, item)}
+              value={stateContainer.getKeywordsState().keywords}
+              onChange={(item) => stateContainer.keywordUpdate(item)}
               labelExtractor={(keyword) => keyword}
               tagContainerStyle={styles.tagContainerStyle}
               tagTextStyle={styles.tagTextStyle}
-              text={this.state.text}
-              onChangeText={this.onChangeText.bind(this)}
+              text={stateContainer.getKeywordsState().text}
+              onChangeText={(text) => stateContainer.keywordTextUpdate(text)}
             />
           </View>
         )}

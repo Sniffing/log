@@ -8,7 +8,6 @@ export default class BooleanMetricsComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.stateContainer();
-    this.shadowState = this.state;
   }
 
   buttonColour(selected) {
