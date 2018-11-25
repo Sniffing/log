@@ -17,34 +17,34 @@ export default class App extends React.Component {
     this.showAlert = this.showAlert.bind(this);
   }
 
-  showAlert(result, container) {
+  showAlert(result, callback) {
     Alert.alert(
       result ? 'Entry saved!' : 'Key exists or error saving stats',
       undefined,
       [
-        {text: 'OK', onPress: () => container.reset()},
+        {text: 'OK', onPress: () => callback()},
       ],
       { cancelable: false }
     )
   }
 
-  submit(container) {
-    console.log("Submitting", container.getState());
-    this.showAlert(true, container);
-    // fetch('http://c11ba659.ngrok.io', {
-    //         method: 'POST',
-    //         headers: {
-    //           Accept: 'application/json',
-    //           'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(this.state),
-    //       }).then((response) => response.json())
-    //         .then((success) => {
-    //           this.showAlert(success);
-    //         })
-    //         .catch((error) => {
-    //           this.showAlert(false);
-    //         });
+  submit(state, callback) {
+    // console.log("Submitting", state);
+    // this.showAlert(true, callback);
+    fetch('http://c11ba659.ngrok.io', {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(state),
+          }).then((response) => response.json())
+            .then((success) => {
+              this.showAlert(success, callback);
+            })
+            .catch((error) => {
+              this.showAlert(false, () => {});
+            });
   }
 
   currentDate() {
@@ -80,7 +80,7 @@ export default class App extends React.Component {
               <Button
                 style={styles.button}
                 color="#67A54D"
-                onPress={() => this.submit(stateContainer)}
+                onPress={() => this.submit(stateContainer.getState(), stateContainer.reset)}
                 title="Submit"
               />
             </View>
