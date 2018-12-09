@@ -38,7 +38,7 @@ export default class App extends React.Component {
   submit(state, callback) {
     // console.log("Submitting", state);
     // this.showAlert(true, callback);
-    fetch('http://c11ba659.ngrok.io', {
+    fetch('http://b873da56.ngrok.io', {
             method: 'POST',
             headers: {
               Accept: 'application/json',
