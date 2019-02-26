@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import DatePicker from 'react-native-datepicker';
 import EntryContainer from 'log/containers/entryContainer';
 import { Provider, Subscribe } from 'unstated';
+import * as constants from 'log/constants/constants';
 
 export default class Entries extends Component {
   constructor(props){
@@ -11,8 +12,7 @@ export default class Entries extends Component {
   }
 
   getEntries = () => {
-
-    fetch('http://b873da56.ngrok.io' + '/entries', {
+    fetch(constants.DATABASE_URL + '/entries', {
             method: 'GET',
             headers: {
               Accept: 'application/json',
@@ -38,6 +38,10 @@ export default class Entries extends Component {
             <View>
               <Text>Last Entry: {entryContainer.getLast()}</Text>
               <Text>First Entry: {entryContainer.getFirst()}</Text>
+              <Button
+                onPress={this.getEntries}
+                title="Refresh"
+              />
             </View>
           )}
         </Subscribe>

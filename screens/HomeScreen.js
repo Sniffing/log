@@ -9,6 +9,7 @@ import LargeTextEntryComponent from 'log/components/largeTextEntry';
 import DatePickerComponent from 'log/components/datePicker';
 import CustomKeywordsListComponent from 'log/components/customKeywordsList';
 import StateContainer from 'log/containers/stateContainer';
+import * as constants from 'log/constants/constants';
 
 const DismissKeyboard = ({ children }) => (
   <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -38,7 +39,7 @@ export default class App extends React.Component {
   submit(state, callback) {
     // console.log("Submitting", state);
     // this.showAlert(true, callback);
-    fetch('http://b873da56.ngrok.io', {
+    fetch(constants.DATABASE_URL, {
             method: 'POST',
             headers: {
               Accept: 'application/json',
