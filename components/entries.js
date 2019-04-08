@@ -23,7 +23,7 @@ export default class Entries extends Component {
               this.stateContainer.update(success.first, success.last);
             })
             .catch((error) => {
-              console.log(error);
+              console.log("err",error);
             });
   }
 
