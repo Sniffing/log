@@ -124,10 +124,10 @@ export default class StateContainer extends Container {
     return dd + "-" + mm + "-" + yyyy;
   }
 
-  reset = () => {
+  reset = (date = this.currentDate()) => {
     let freshState = {
       dateState: {
-        date: this.currentDate()
+        date: date
       },
       booleanMetricState: {
         happy: false,

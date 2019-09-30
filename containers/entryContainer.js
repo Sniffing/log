@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Container } from 'unstated';
 
 export default class EntryContainer extends Container {

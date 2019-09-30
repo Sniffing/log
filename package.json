@@ -13,24 +13,27 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@babel/runtime": "^7.1.5",
+    "@babel/runtime": "^7.4.4",
     "@expo/samples": "2.1.1",
+    "@expo/vector-icons": "^10.0.5",
     "@google-cloud/datastore": "^2.0.0",
-    "expo": "^32.0.4",
-    "handlebars": "^4.1.1",
+    "expo": "^33.0.0",
+    "expo-asset": "^7.0.0",
+    "expo-font": "^5.0.1",
+    "handlebars": "^4.3.4",
     "i": "^0.3.6",
-    "npm": "^6.4.1",
+    "npm": "^6.11.3",
     "react": "^16.8.3",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-datepicker": "^1.7.2",
-    "react-native-modal": "^7.0.0",
+    "react-native-modal": "^11.0.0",
     "react-native-tag-input": "0.0.21",
-    "react-navigation": "^2.18.1",
+    "react-navigation": "^2.18.3",
     "unstated": "^2.1.1"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.0.0",
-    "jest-expo": "^32.0.0",
+    "babel-preset-expo": "^5.1.1",
+    "jest-expo": "^35.0.0",
     "schedule": "^0.4.0"
   }
 }
